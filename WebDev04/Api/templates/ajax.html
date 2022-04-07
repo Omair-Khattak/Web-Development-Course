@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AJAX Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h1 id="messgae">Table</h1>
+       <table class="table table-hover table-bordered" id="table">
+          <thead class="thead-dark">
+             <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Detail</th>
+                <th scope="col">Delete</th>
+             </tr>
+          </thead>
+          <tbody>
+             
+          </tbody>
+       </table>
+
+</body>
+<script>
+    $.ajax({
+        url: 'http://127.0.0.1:5000/todo/api',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+        success: function (response) {
+            response.forEach(todoItems => {
+             id = todoItems['id'];
+             title = todoItems['title'];
+             description = todoItems['description'];
+                var row = "<tr>"+
+                 "<td>"+id+"</td>"+
+                 "<td>"+title+"</td>"+
+                 "<td>"+description+"</td>"+
+                 "<td>" +
+                 "<a type='button' href=http://127.0.0.1:5000/todo/api/"+id+" class='btn btn-primary btn-lg'>Detail"+
+                 "</a>" +
+                 "</td>" +
+                 "<td>" +
+                "<a type='button' class='btn btn-primary btn-lg' onclick='Delete("+id+")'> Delete"+
+                "</a>" +
+                "</td>" +
+                 "<tr>";
+                $('#table tbody').append(row)
+                console.log(row)                
+           });
+        
+         },
+        
+    })
+    function Delete(id){
+        $.ajax({
+            type:"DELETE",
+            url: "http://127.0.0.1:5000/todo/api/"+id+"",
+                
+            success: function(){
+                window.location = 'http://127.0.0.1:5000'
+            }
+        })
+    }
+    
+</script>
+
+</html>

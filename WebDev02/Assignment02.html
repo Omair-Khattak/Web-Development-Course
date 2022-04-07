@@ -1,0 +1,59 @@
+
+<html>
+    <head>
+       <title>Country Example</title>
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+       <h1 id="messgae">Country Table</h1>
+       <table class="table table-hover table-bordered" id="country_table">
+          <thead class="thead-dark">
+             <tr>
+                <th scope="col">Official Name</th>
+                <th scope="col">Continent</th>
+                <th scope="col">population</th>
+                <th scope="col">Abrivation</th>
+                <th scope="col">Flag</th>
+                <th scope="col">Detail</th>
+
+             </tr>
+          </thead>
+          <tbody>
+             
+          </tbody>
+       </table>
+    </body>
+    <script>
+    
+ $.ajax({
+    url: "https://restcountries.com/v3.1/all",
+    success: function (response) {
+       response.forEach(country => {
+        name = country['name']['official'];
+        con = country['continents'];
+        time = country['population'];
+        abv = country['flag'];
+        flag = country['flags']['png'];
+           console.log(country)
+           var row = "<tr>"+
+            "<td>"+name+"</td>"+
+            "<td>"+con+"</td>"+
+            "<td>"+time+"</td>"+
+            "<td>"+abv+"</td>"+
+            "<td>"+'<img src="'+flag+'"width="65" height="40"">'+"</td>"+
+            "<td>" +
+            "<a type='button' href=https://restcountries.com/v3.1/name/"+name+"?fullText=true class='btn btn-primary btn-lg'>Detail"+
+            "</a>" +
+            "</td>" +
+            "<tr>";
+           $('#country_table tbody').append(row)
+           console.log(row)
+      });
+   
+    },
+ });
+
+ </script>
+ </html>

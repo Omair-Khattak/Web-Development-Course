@@ -1,0 +1,112 @@
+<html>
+   <head>
+      <title>Country Example</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <form id="form">
+         <div class="form-group">
+           <label for="exampleInputEmail1">Email address</label>
+           <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+           <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+         </div>
+         <div id="error" style="color:red"></div>
+         <div class="form-group">
+           <label for="exampleInputPassword1">Password</label>
+           <input type="password" class="form-control" id="password" placeholder="Password">
+         </div>
+         <div id="error1" style="color:red"></div>
+      </form>
+         
+      <form>
+         <h3>Please select any vehicle</h3>
+         <div class="checkbox-inline">
+              <input type="checkbox" class="form-check-input" name="vehicle" >vehicle 01
+            </label>
+          </div>
+          <div class="checkbox-inline">
+              <input type="checkbox" class="form-check-input" name="vehicle" >vehicle 02
+            </label>
+          </div>
+          <div class="checkbox-inline">
+              <input type="checkbox" class="form-check-input" name="vehicle">vehicle 03
+            </label>
+          </div>
+          <div id="error2" style="color:red"></div>
+      </form>
+
+      <form>
+          <h3>Please select your gender:</h3>
+          <div class="radio-inline"  >
+              <input type="radio" class="form-check-input1" name="optradio" checked>Male
+            </label>
+          </div>
+          <div class="radio-inline">
+              <input type="radio" class="form-check-input1" name="optradio">Female
+            </label>
+          </div>
+          <div class="radio-inline">
+              <input type="radio" class="form-check-input1" name="optradio" >Other
+            </label>
+          </div>
+      </form>
+
+       <button type="submit" class="btn btn-primary">Submit</button>
+      <label>Fill All the Fields</label>
+   </body>
+
+<script>
+    $("button").click(function (e) { 
+       e.preventDefault();
+       const name = document.getElementById('email')
+       const password = document.getElementById('password')
+       const form = document.getElementById('form')
+       const check1 = document.getElementsByClassName('form-check-input')
+       const errorElement = document.getElementById('error')
+       const errorElement1 = document.getElementById('error1')
+       const errorElement2 = document.getElementById('error2')
+       let email_messages = []
+       let pass_messages = []
+       let check_messages = []
+       if (name.value === '' || name.value == null) {
+          email_messages.push('Name is required')
+       }
+
+       if (password.value === '' || password.value == null) {
+          pass_messages.push('Password is required')
+       }
+       if ($('input[name=vehicle]:checked').length < 1) {
+    	  check_messages.push('check is required')
+		}
+
+    if (email_messages.length > 0) {
+          e.preventDefault()
+          errorElement.innerText = email_messages
+    }
+    if (pass_messages.length > 0) {
+        e.preventDefault()
+        errorElement1.innerText = pass_messages
+    }
+    if (check_messages.length > 0) {
+        e.preventDefault()
+        errorElement2.innerText = check_messages
+    }
+
+    sendRequest($("#email").val(), $("#password").val(), $('.form-check-input:checked').val(), $('.form-check-input1:checked').val());
+       
+    });
+    function sendRequest(email, password, check, radio) {
+       $.ajax({
+          type: "POST",
+          url: "http://127.0.0.1:5000/data",
+          data: ({'username': email, 'password': password, 'check': check, 'radio':radio}),
+          success: function (response) {
+             console.log(response);
+             
+          }
+       });
+    }
+</script>
+</html>

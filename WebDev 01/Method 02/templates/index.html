@@ -1,0 +1,26 @@
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+</style>
+
+<table class="table table-striped">
+    <tr  class="bg-info">
+        <th>userId</th>
+        <th>id</th>
+        <th>title</th>
+        <th>completed</th>
+    </tr>
+    {%for i in range(0, len)%}
+    <tr>
+        <td>{{uId_values[i]}}</td>
+        <td>{{id_values[i]}}</td>
+        <td>{{title_values[i]}}</td>
+        <td>{{comp_values[i]}}</td>
+        {%endfor%}
+      </tr>
+</table>
